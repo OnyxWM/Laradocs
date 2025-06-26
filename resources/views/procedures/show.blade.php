@@ -10,8 +10,11 @@
                 </form>
                 @endcan
             </div>
-        </div>
 
+        </div>
+        <div class="flex justify-center items-center mt-2">
+            <flux:heading size="lg">{{ $procedure->department->name }}</flux:heading>
+        </div>
         <div class="mt-6 prose dark:prose-invert mx-auto">
             <p class=" dark:text-gray-100">{!! $procedure->html !!}</p>
             <span class="text-sm dark:text-gray-300">
