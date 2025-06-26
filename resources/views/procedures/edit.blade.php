@@ -32,7 +32,9 @@
                     </label>
                     <textarea id="body" name="body" class="w-full h-full mt-2 p-2 rounded-md text-md bg-white border border-gray-300/50 shadow-xs dark:bg-gray-700">{{ old('body', $procedure->body) }}</textarea>
                     <div class="flex mt-2 items-center gap-x-4">
-                        <flux:button variant="danger" form="delete-form" type="submit">Delete</flux:button>
+                        <flux:modal.trigger name="delete-confirm">
+                            <flux:button variant="danger">Delete</flux:button>
+                        </flux:modal.trigger>
                         <flux:button variant="primary" type="submit">Update</flux:button>
                     </div>
                 </div>
@@ -43,4 +45,5 @@
             </form>
         </div>
     </div>
+    <x-flux.delete-confirm />
 </x-layouts.app>
