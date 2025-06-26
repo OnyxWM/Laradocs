@@ -1,10 +1,10 @@
 <x-layouts.app :title="__('New Procedure')">
-    <div>
+    <div class="max-w-7xl mx-auto">
         <div class="flex justify-between">
             <h1 class="text-4xl font-bold">New Procedure</h1>
         </div>
 
-        <div class="flex h-[800px] mt-10">
+        <div class="flex min-h-[300px] mt-10">
             <form action="{{ route('procedures.store') }}" method="post" class="w-full">
                 @csrf
                 <div>

@@ -37,7 +37,7 @@ class ProcedurePolicy
      */
     public function update(User $user, Procedure $procedure): bool
     {
-        return false;
+        return $user->id === $procedure->user_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class ProcedurePolicy
      */
     public function delete(User $user, Procedure $procedure): bool
     {
-        return false;
+        return $user->id === $procedure->user_id;
     }
 
     /**

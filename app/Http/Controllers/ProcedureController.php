@@ -64,7 +64,14 @@ class ProcedureController extends Controller
      */
     public function edit(Procedure $procedure)
     {
-        //
+        $this->authorize('update', $procedure);
+
+        $departments = Department::all();
+
+        return view('procedures.edit', [
+            'procedure' => $procedure,
+            'departments' => $departments,
+        ]);
     }
 
     /**
@@ -72,7 +79,17 @@ class ProcedureController extends Controller
      */
     public function update(Request $request, Procedure $procedure)
     {
-        //
+        $this->authorize('update', $procedure);
+
+        $data = $request->validate([
+            'title' => ['required', 'string', 'max:100'],
+            'body' => ['required', 'string'],
+            'department_id' => ['required', 'exists:departments,id'],
+        ]);
+
+        $procedure->update($data);
+
+        return to_route('procedures.show', $procedure)->with('success', 'Procedure updated');
     }
 
     /**
@@ -80,6 +97,10 @@ class ProcedureController extends Controller
      */
     public function destroy(Procedure $procedure)
     {
-        //
+        $this->authorize('delete', $procedure);
+
+        $procedure->delete();
+
+        return to_route('procedures.index')->with('success', 'Procedure deleted');
     }
 }
