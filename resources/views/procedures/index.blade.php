@@ -8,22 +8,34 @@
             </form>
         </div>
 
-        <div class="mt-6">
-            <ul class="grid grid-cols-3 gap-5">
-                @foreach($procedures as $procedure)
-                    <x-item-card
-                        :href="route('procedures.show', $procedure)"
-                        :title="$procedure->title"
-                        badgeText="{{ $procedure->department->name }}"
-                        badgeColor="cyan"
-                        meta="{{ $procedure->created_at->diffForHumans() }} by {{ $procedure->user->name }}"
-                    />
-                @endforeach
-            </ul>
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
 
-            <div class="mt-6">
-                {{ $procedures->links() }}
-            </div>
+            @foreach($departments as $department)
+                @php
+                    $color = $departmentColors[$department->name] ?? $departmentColors['default'];
+                @endphp
+                <div class="space-y-4">
+                    <h2 class="text-2xl font-semibold border-b-2 pb-2 dark:text-white border-{{ $color }}-500">
+                        {{ $department->name }}
+                    </h2>
+
+                    @forelse($department->procedures as $procedure)
+                        <ul>
+                            <x-item-card
+                                :href="route('procedures.show', $procedure)"
+                                :title="$procedure->title"
+                                badgeText="{{ $department->name }}"
+                                badgeColor="{{ $color }}"
+                                meta="{{ $procedure->created_at->diffForHumans() }} by {{ $procedure->user->name }}"
+                            />
+                        </ul>
+                    @empty
+                        <p class="text-gray-500 dark:text-gray-400 italic">
+                            No procedures in this department yet.
+                        </p>
+                    @endforelse
+                </div>
+            @endforeach
         </div>
     </div>
 </x-layouts.app>

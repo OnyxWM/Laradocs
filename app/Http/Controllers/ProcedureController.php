@@ -13,8 +13,20 @@ class ProcedureController extends Controller
      */
     public function index()
     {
+        $departmentColors = [
+            'Sales' => 'cyan',
+            'Dispatch' => 'lime',
+            'Assembly' => 'violet',
+            'default' => 'gray',
+        ];
+
+        $departments = Department::with(['procedures' => function ($query) {
+            $query->latest()->limit(5);
+        }])->get();
+
         return view('procedures.index', [
-            'procedures' => Procedure::latest()->with(['user', 'department'])->paginate(10),
+            'departments' => $departments,
+            'departmentColors' => $departmentColors,
         ]);
     }
 
