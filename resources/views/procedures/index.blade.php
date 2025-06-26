@@ -37,5 +37,16 @@
                 </div>
             @endforeach
         </div>
+
+        <div class="mt-16">
+            <h2 class="text-2xl font-semibold border-b-2 border-gray-400 pb-2 dark:text-white dark:border-gray-600">
+                All Procedures
+            </h2>
+
+            {{-- Call the Livewire component and pass in the colors --}}
+            <div class="mt-6">
+                <livewire:all-procedures-list :departmentColors="$departmentColors" />
+            </div>
+        </div>
     </div>
 </x-layouts.app>
