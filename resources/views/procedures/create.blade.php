@@ -8,25 +8,33 @@
             <form action="{{ route('procedures.store') }}" method="post" class="w-full">
                 @csrf
                 <div>
-                    <label for="title" class="text-2xl font-semibold">Title</label>
-                    <input type="text" id="title" name="title" class="w-full mt-2 p-2 rounded-md text-xl bg-white border border-gray-300/50 shadow-xs dark:bg-gray-700" />
+                    <flux:label id="title" size="xl">Title</flux:label>
+                    <flux:input name="title" id="title" class="mt-2" />
+                    @error('title')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mt-5">
-                    <label for="department_id" class="text-2xl font-semibold">Department</label>
-                    <select id="department_id" name="department_id" class="w-full mt-2 p-2 rounded-md text-xl bg-white border border-gray-300/50 shadow-xs dark:bg-gray-700">
-                        <option value="" disabled selected>Select a Department</option>
-                        @foreach($departments as $department)
-                            <option value="{{ $department->id }}">{{ $department->name }}</option>
-                        @endforeach
-                    </select>
+                    <flux:heading size="xl">Department</flux:heading>
+                    <flux:select
+                        id="department_id"
+                        wire:model="department_id"
+                        class="w-full mt-2"
+                        placeholder="Select a Department"
+                    >
+                        <flux:select.option value="1">Sales</flux:select.option>
+                        <flux:select.option value="2">Dispatch</flux:select.option>
+                        <flux:select.option value="3">Assembly</flux:select.option>
+                    </flux:select>
+                    @error('department_id')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mt-10 h-full">
-                    <label for="body" class="text-2xl font-semibold">
-                        Body
-                    </label>
-                    <textarea id="body" name="body" class="w-full h-full mt-2 p-2 rounded-md text-md bg-white border border-gray-300/50 shadow-xs dark:bg-gray-700"></textarea>
+                    <flux:heading size="xl">Body</flux:heading>
+                    <flux:textarea id="body" resize="vertical" name="body" class="mt-2"/>
                     <flux:button variant="primary" class="mt-2" type="submit">Post</flux:button>
                 </div>
             </form>
