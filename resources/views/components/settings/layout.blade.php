@@ -4,7 +4,9 @@
             <flux:navlist.item :href="route('settings.profile')" wire:navigate>{{ __('Profile') }}</flux:navlist.item>
             <flux:navlist.item :href="route('settings.password')" wire:navigate>{{ __('Password') }}</flux:navlist.item>
             <flux:navlist.item :href="route('settings.appearance')" wire:navigate>{{ __('Appearance') }}</flux:navlist.item>
-            <flux:navlist.item :href="route('settings.user-management')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
+            @can('is-manager')
+                <flux:navlist.item :href="route('settings.user-management')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
+            @endcan
         </flux:navlist>
     </div>
 

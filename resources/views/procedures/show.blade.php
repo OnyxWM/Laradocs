@@ -3,7 +3,7 @@
         <div class="flex relative justify-center items-center border-b-2 border-zinc-800/10 dark:border-white/20 pb-4">
             <h1 class="text-4xl font-bold text-center dark:text-white">{{ $procedure->title }}</h1>
             <div class="absolute right-0">
-                @can('update', $procedure)
+                @can('is-manager', $procedure)
                 <form action="{{ route('procedures.edit', $procedure)}}" method="get">
                     @csrf
                     <flux:button variant="primary" type="submit">Edit</flux:button>

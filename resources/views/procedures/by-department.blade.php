@@ -2,10 +2,12 @@
     <div class="max-w-7xl mx-auto">
         <div class="flex justify-between border-b-2 pb-4 border-zinc-800/10 dark:border-white/20">
             <h1 class="text-4xl font-bold">{{ $department->name }} Procedures</h1>
+            @can('is-manager')
+                <form action="{{ route('procedures.create')}}" method="get" class="mt-1">
+                    <flux:button variant="primary" type="submit">New Procedure</flux:button>
+                </form>
+            @endcan
 
-            <form action="{{ route('procedures.create')}}" method="get" class="mt-1">
-                <flux:button variant="primary" type="submit">New Procedure</flux:button>
-            </form>
         </div>
 
         <div class="mt-8 space-y-6">

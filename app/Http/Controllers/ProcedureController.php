@@ -97,7 +97,7 @@ class ProcedureController extends Controller
      */
     public function edit(Procedure $procedure)
     {
-        $this->authorize('update', $procedure);
+        $this->authorize('is-manager', $procedure);
 
         $departments = Department::all();
 
@@ -112,7 +112,7 @@ class ProcedureController extends Controller
      */
     public function update(Request $request, Procedure $procedure)
     {
-        $this->authorize('update', $procedure);
+        $this->authorize('is-manager', $procedure);
 
         $data = $request->validate([
             'title' => ['required', 'string', 'max:100'],
