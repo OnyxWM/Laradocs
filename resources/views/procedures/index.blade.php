@@ -1,11 +1,13 @@
 <x-layouts.app :title="__('Procedures')">
     <div class="max-w-7xl mx-auto">
-        <div class="flex justify-between border-b-2 border-white/20 pb-4">
+        <div class="flex justify-between border-b-2 border-zinc-800/10 dark:border-white/20 pb-4">
             <h1 class="text-4xl font-bold">Procedures</h1>
+            @can('is-manager')
+                <form action="{{ route('procedures.create')}}" method="get" class="mt-1">
+                    <flux:button variant="primary" type="submit">New Procedure</flux:button>
+                </form>
+            @endcan
 
-            <form action="{{ route('procedures.create')}}" method="get" class="mt-1">
-                <flux:button variant="primary" type="submit">New Procedure</flux:button>
-            </form>
         </div>
 
         <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -15,7 +17,7 @@
                     $color = $departmentColors[$department->name] ?? $departmentColors['default'];
                 @endphp
                 <div class="space-y-4">
-                    <h2 class="text-2xl font-semibold border-b-2 pb-2 dark:text-white border-white/20">
+                    <h2 class="text-2xl font-semibold border-b-2 pb-2 dark:text-white border-zinc-800/10 dark:border-white/20">
                         {{ $department->name }}
                     </h2>
 
@@ -39,7 +41,7 @@
         </div>
 
         <div class="mt-16">
-            <h2 class="text-2xl font-semibold border-b-2 border-gray-400 pb-2 dark:text-white dark:border-white/20">
+            <h2 class="text-2xl font-semibold border-b-2 border-zinc-800/10 pb-2 dark:text-white dark:border-white/20">
                 All Procedures
             </h2>
 

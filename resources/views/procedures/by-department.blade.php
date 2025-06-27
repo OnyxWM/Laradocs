@@ -1,6 +1,6 @@
 <x-layouts.app :title="$department->name . ' Procedures'">
     <div class="max-w-7xl mx-auto">
-        <div class="flex justify-between border-b-2 pb-4 border-white/20">
+        <div class="flex justify-between border-b-2 pb-4 border-zinc-800/10 dark:border-white/20">
             <h1 class="text-4xl font-bold">{{ $department->name }} Procedures</h1>
 
             <form action="{{ route('procedures.create')}}" method="get" class="mt-1">
