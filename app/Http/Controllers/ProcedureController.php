@@ -30,6 +30,27 @@ class ProcedureController extends Controller
         ]);
     }
 
+    public function byDepartment(Department $department)
+    {
+        $departmentColors = [
+            'Sales' => 'cyan',
+            'Dispatch' => 'lime',
+            'Assembly' => 'violet',
+            'default' => 'gray',
+        ];
+        // Eager load the 'user' for each procedure in the department
+        $procedures = $department->procedures()
+            ->with('user')
+            ->latest()
+            ->paginate(10);
+
+        return view('procedures.by-department', [
+            'department' => $department,
+            'procedures' => $procedures,
+            'departmentColors' => $departmentColors,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

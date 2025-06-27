@@ -1,6 +1,29 @@
+<?php
+
+use App\Models\Procedure;
+use Livewire\WithPagination;
+use Livewire\Volt\Component;
+
+new class extends Component
+{
+    use WithPagination;
+
+    public $departmentColors = [];
+
+    public function with(): array
+    {
+        return [
+        'allProcedures' => Procedure::latest()
+            ->with(['user', 'department'])
+            ->paginate(10),
+        ];
+    }
+}; ?>
+
 <div>
     {{-- Container for the single-column list --}}
-    <div class="space-y-5">
+    <div >
+        <ul class="space-y-5">
         @forelse($allProcedures as $procedure)
             <x-item-card
                 :href="route('procedures.show', $procedure)"
@@ -14,6 +37,7 @@
                 There are no procedures yet.
             </p>
         @endforelse
+        </ul>
     </div>
 
     {{-- Pagination Logic --}}

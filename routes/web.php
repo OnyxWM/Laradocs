@@ -6,13 +6,13 @@ use App\Http\Controllers\ProcedureController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+//Route::get('/', function () {
+//    return view('welcome');
+//})->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::view('/', 'dashboard')
     ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+    ->name('home');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
@@ -27,4 +27,6 @@ require __DIR__.'/auth.php';
 Route::middleware('auth')->resource('posts', PostController::class);
 Route::middleware('auth')->resource('posts.comments', CommentController::class);
 Route::middleware('auth')->resource('procedures', ProcedureController::class);
+Route::middleware('auth')->get('/procedures/department/{department:slug}', [ProcedureController::class, 'byDepartment'])
+    ->name('procedures.by_department');
 

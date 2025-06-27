@@ -7,15 +7,30 @@
         <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-gray-700 dark:bg-gray-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-            <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+            <a href="{{ route('home') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
                 <x-app-logo />
             </a>
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('home')" :current="request()->routeIs('home')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                     <flux:navlist.item icon="book-open" :href="route('posts.index')" :current="request()->routeIs('posts.index')" wire:navigate>{{ __('Posts') }}</flux:navlist.item>
-                    <flux:navlist.item icon="book-open" :href="route('procedures.index')" :current="request()->routeIs('procedures.index')" wire:navigate>{{ __('Procedures') }}</flux:navlist.item>
+                    <flux:navlist.group heading="Procedures" expandable wire:navigate>
+                        <flux:navlist.item
+                            :href="route('procedures.index')"
+                            :current="request()->routeIs('procedures.index')"
+                            wire:navigate>
+                            All Procedures
+                        </flux:navlist.item>
+                        @foreach ($departments as $department)
+                            <flux:navlist.item
+                                :href="route('procedures.by_department', ['department' => $department->slug])"
+                                :current="request()->is('procedures/department/' . $department->slug)"
+                                wire:navigate>
+                                {{ $department->name }}
+                            </flux:navlist.item>
+                        @endforeach
+                    </flux:navlist.group>
                 </flux:navlist.group>
             </flux:navlist>
 

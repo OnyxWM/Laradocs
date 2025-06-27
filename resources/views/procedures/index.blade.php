@@ -1,6 +1,6 @@
 <x-layouts.app :title="__('Procedures')">
     <div class="max-w-7xl mx-auto">
-        <div class="flex justify-between">
+        <div class="flex justify-between border-b-2 border-white/20 pb-4">
             <h1 class="text-4xl font-bold">Procedures</h1>
 
             <form action="{{ route('procedures.create')}}" method="get" class="mt-1">
@@ -15,7 +15,7 @@
                     $color = $departmentColors[$department->name] ?? $departmentColors['default'];
                 @endphp
                 <div class="space-y-4">
-                    <h2 class="text-2xl font-semibold border-b-2 pb-2 dark:text-white border-{{ $color }}-500">
+                    <h2 class="text-2xl font-semibold border-b-2 pb-2 dark:text-white border-white/20">
                         {{ $department->name }}
                     </h2>
 
@@ -39,7 +39,7 @@
         </div>
 
         <div class="mt-16">
-            <h2 class="text-2xl font-semibold border-b-2 border-gray-400 pb-2 dark:text-white dark:border-gray-600">
+            <h2 class="text-2xl font-semibold border-b-2 border-gray-400 pb-2 dark:text-white dark:border-white/20">
                 All Procedures
             </h2>
 
