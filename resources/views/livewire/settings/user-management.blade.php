@@ -10,6 +10,7 @@ new class extends Component {
     use WithPagination;
 
     public ?User $userToDelete = null;
+    public bool $showDeleteModal = false;
 
     public function mount(): void
     {
@@ -19,22 +20,30 @@ new class extends Component {
     public function confirmUserDeletion(User $user): void
     {
         $this->authorize('is-admin');
-
         $this->userToDelete = $user;
+        $this->showDeleteModal = true;
     }
 
     public function delete(): void
     {
         $this->authorize('is-admin');
 
-        if ($this->userToDelete->id === auth()->id()) {
-            $this->reset('userToDelete');
+        if ($this->userToDelete && $this->userToDelete->id === auth()->id()) {
+            $this->cancelDelete();
             return;
         }
 
-        $this->userToDelete->delete();
+        if ($this->userToDelete) {
+            $this->userToDelete->delete();
+            session()->flash('message', 'User deleted successfully.');
+        }
 
-        $this->reset('userToDelete');
+        $this->cancelDelete();
+    }
+
+    public function cancelDelete(): void
+    {
+        $this->reset(['userToDelete', 'showDeleteModal']);
     }
 
     public function with(): array
@@ -84,8 +93,7 @@ new class extends Component {
                                         @can('is-admin')
                                             <flux:menu.separator />
                                             <flux:menu.item
-                                                as="button"
-                                                class="text-red-600 dark:text-red-500"
+                                                variant="danger"
                                                 wire:click="confirmUserDeletion({{ $user->id }})">
                                                 Delete
                                             </flux:menu.item>
@@ -110,5 +118,23 @@ new class extends Component {
                 {{ $users->links() }}
             </div>
         </div>
+        @if($showDeleteModal && $userToDelete)
+            <flux:modal wire:model="showDeleteModal">
+                    <flux:heading size="lg">Confirm User Deletion</flux:heading>
+
+                    <flux:text class="text-gray-600 dark:text-gray-400">
+                        Are you sure you want to delete <strong>{{ $userToDelete->name }}</strong>?
+                        This action cannot be undone.
+                    </flux:text>
+                    <div class="flex mt-4 justify-end space-x-3">
+                        <flux:button variant="ghost" wire:click="cancelDelete">
+                            Cancel
+                        </flux:button>
+                        <flux:button variant="danger" wire:click="delete">
+                            Delete User
+                        </flux:button>
+                    </div>
+            </flux:modal>
+        @endif
     </x-settings.layout>
 </section>
