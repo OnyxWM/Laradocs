@@ -2,7 +2,7 @@
     <div class="space-y-6">
         <div>
             <flux:heading size="lg">Delete</flux:heading>
-            <flux:text class="mt-2">Are you sure you want to delete?</flux:text>
+            <flux:text >Are you sure you want to delete?</flux:text>
         </div>
 
         <div class="flex">

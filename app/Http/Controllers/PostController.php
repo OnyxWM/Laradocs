@@ -32,12 +32,12 @@ class PostController extends Controller
     {
         $data = $request->validate([
             'title' => ['required', 'string', 'max:100'],
-            'body' => ['required', 'string']
+            'body' => ['required', 'string'],
         ]);
 
         $post = Post::create([
             ...$data,
-            'user_id' => $request->user()->id
+            'user_id' => $request->user()->id,
         ]);
 
         return to_route('posts.show', $post);

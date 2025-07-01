@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 
 class Department extends Model
 {
-
     protected $fillable = ['name', 'slug'];
 
     public static function booted(): void

@@ -119,18 +119,18 @@ new class extends Component {
             </div>
         </div>
         @if($showDeleteModal && $userToDelete)
-            <flux:modal wire:model="showDeleteModal">
+            <flux:modal wire:model="showDeleteModal" class="md:w-96">
                     <flux:heading size="lg">Confirm User Deletion</flux:heading>
 
                     <flux:text class="text-gray-600 dark:text-gray-400">
                         Are you sure you want to delete <strong>{{ $userToDelete->name }}</strong>?
                         This action cannot be undone.
                     </flux:text>
-                    <div class="flex mt-4 justify-end space-x-3">
-                        <flux:button variant="ghost" wire:click="cancelDelete">
+                    <div class="flex mt-4 justify-end gap-x-2">
+                        <flux:button variant="ghost" size="sm" wire:click="cancelDelete">
                             Cancel
                         </flux:button>
-                        <flux:button variant="danger" wire:click="delete">
+                        <flux:button variant="danger" size="sm" wire:click="delete">
                             Delete User
                         </flux:button>
                     </div>

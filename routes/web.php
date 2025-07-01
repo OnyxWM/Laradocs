@@ -26,4 +26,3 @@ Route::middleware('auth')->resource('posts.comments', CommentController::class);
 Route::middleware('auth')->resource('procedures', ProcedureController::class);
 Route::middleware('auth')->get('/procedures/department/{department:slug}', [ProcedureController::class, 'byDepartment'])
     ->name('procedures.by_department');
-
